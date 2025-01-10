@@ -1,4 +1,5 @@
 const myLibrary = [];
+const table = document.querySelector("table");
 
 function Book(title, author, pages, hasReadBook) {
   this.title = title;
@@ -17,9 +18,16 @@ function addBookToLibrary(title, author, pages, hasReadBook) {
 }
 
 addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
-addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
-addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
+addBookToLibrary("Evil Joe", "Joe Buddy", 1, true);
+addBookToLibrary("Happy Joe", "Bobby Joe", 10, false);
 
 for (book of myLibrary) {
-  console.log(book);
+  const newRow = table.insertRow();
+  for (data of Object.values(book)) {
+    if (typeof data === "function") {
+      continue;
+    }
+    const newCell = newRow.insertCell();
+    newCell.textContent = data;
+  }
 }
