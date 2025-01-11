@@ -35,21 +35,17 @@ addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
 addBookToLibrary("Evil Joe", "Joe Buddy", 1, true);
 addBookToLibrary("Happy Joe", "Bobby Joe", 10, false);
 
-submit.addEventListener(
-  "click",
-  (event) => {
-    event.preventDefault();
-    console.log(form["title"].value);
-    addBookToLibrary(
-      form["title"].value,
-      form["author"].value,
-      form["pages"].value,
-      form["has-read-book"].value
-    );
-    updateDisplay();
-  },
-  false
-);
+submit.addEventListener("click", (event) => {
+  event.preventDefault();
+  addBookToLibrary(
+    form["title"].value,
+    form["author"].value,
+    form["pages"].value,
+    form["has-read-book"].checked
+  );
+
+  updateDisplay();
+});
 function displayBooks() {
   for (book of myLibrary) {
     const newRow = table.insertRow();
