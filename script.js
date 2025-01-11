@@ -15,19 +15,25 @@ function Book(title, author, pages, hasReadBook) {
       hasReadBook ? "read already" : "not read yet"
     }`;
   };
+  this.delete = document.createElement("button");
+  this.delete.innerText = "Delete";
+  this.delete.addEventListener("click", (e) => {
+    let clickedButton = e.target;
+    clickedButton.closest("tr").remove();
+  });
 }
 
 function addBookToLibrary(title, author, pages, hasReadBook) {
   myLibrary.push(new Book(title, author, pages, hasReadBook));
 }
 
-addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
-addBookToLibrary("Evil Joe", "Joe Buddy", 1, true);
-addBookToLibrary("Happy Joe", "Bobby Joe", 10, false);
-
 newBookButton.addEventListener("click", () => {
   dialog.showModal();
 });
+
+addBookToLibrary("Angry Joe", "Joe Bobby", 100, false);
+addBookToLibrary("Evil Joe", "Joe Buddy", 1, true);
+addBookToLibrary("Happy Joe", "Bobby Joe", 10, false);
 
 submit.addEventListener(
   "click",
@@ -48,22 +54,29 @@ function displayBooks() {
   for (book of myLibrary) {
     const newRow = table.insertRow();
     for (data of Object.values(book)) {
-      if (typeof data === "function") {
-        continue;
+      if (typeof data !== "function") {
+        const newCell = newRow.insertCell();
+        if (typeof data === "object") {
+          newCell.insertAdjacentElement("beforeend", data);
+        } else {
+          newCell.textContent = data;
+        }
       }
-      const newCell = newRow.insertCell();
-      newCell.textContent = data;
     }
   }
 }
 displayBooks();
+
 function updateDisplay() {
   const newRow = table.insertRow();
   for (data of Object.values(myLibrary[myLibrary.length - 1])) {
-    if (typeof data === "function") {
-      continue;
+    if (typeof data !== "function") {
+      const newCell = newRow.insertCell();
+      if (typeof data === "object") {
+        newCell.insertAdjacentElement("beforeend", data);
+      } else {
+        newCell.textContent = data;
+      }
     }
-    const newCell = newRow.insertCell();
-    newCell.textContent = data;
   }
 }
