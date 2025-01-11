@@ -9,7 +9,11 @@ function Book(title, author, pages, hasReadBook) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.hasReadBook = hasReadBook;
+  this.hasReadBook = document.createElement("button");
+  this.hasReadBook.innerText = hasReadBook;
+  this.hasReadBook.addEventListener("click", () => {
+    this.hasReadBook.innerText = !(this.hasReadBook.innerText === "true");
+  });
   this.info = function () {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${
       hasReadBook ? "read already" : "not read yet"
